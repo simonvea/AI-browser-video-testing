@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <title>Lek med video</title>
+  </head>
+
+  <body>
+    <video autoplay height="480" width="640"></video>
+    <button id="picture-btn">Ta bilde</button>
+    <canvas id="picture" height="480" width="640"></canvas>
+    <script>
+      const video = document.querySelector('video');
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const btn = document.getElementById('picture-btn');
+
+      navigator.mediaDevices
+        ?.getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((err) => console.error('errroroo', err));
+
+      // TODO: Stream...
+
+      btn.addEventListener('click', () => {
+        ctx.drawImage(video, 0, 0);
+      });
+    </script>
+  </body>
+</html>
